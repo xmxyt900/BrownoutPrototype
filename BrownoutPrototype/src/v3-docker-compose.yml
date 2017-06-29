@@ -1,0 +1,165 @@
+version: '3'
+
+services:
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8079:8080"
+    stop_grace_period: 1m30s
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+  front-end:
+    image: weaveworksdemos/front-end
+#    image: simplefrontend
+    hostname: front-end
+    labels: 
+      brownout.feature: "optional"
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: none
+  edge-router:
+    image: weaveworksdemos/edge-router
+    ports:
+      - '8080:80'
+      - '8082:8080'
+    hostname: edge-router
+    deploy:
+      placement:
+        constraints: [node.role == manager]     
+  catalogue:
+    image: weaveworksdemos/catalogue
+    hostname: catalogue
+    environment:
+      - ZIPKIN=http://zipkin:9411/api/v1/spans
+    labels:
+      brownout.feature: "optional"
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: none
+  catalogue-db:
+    image: weaveworksdemos/catalogue-db
+    hostname: catalogue-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_DATABASE=socksdb
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+  carts:
+    image: weaveworksdemos/carts
+    hostname: carts
+    environment:
+      - JAVA_OPTS=-Xms64m -Xmx128m -XX:PermSize=32m -XX:MaxPermSize=64m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom
+    labels:
+      brownout.feature: "optional"
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: none
+  carts-db:
+    image: mongo
+    hostname: carts-db
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+  orders:
+    image: weaveworksdemos/orders
+    hostname: orders
+    environment:
+      - JAVA_OPTS=-Xms64m -Xmx128m -XX:PermSize=32m -XX:MaxPermSize=64m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom
+    labels:
+      brownout.feature: "optional"
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: none
+  orders-db:
+    image: mongo
+    hostname: orders-db
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+  shipping:
+    image: weaveworksdemos/shipping
+    hostname: shipping
+    environment:
+      - JAVA_OPTS=-Xms64m -Xmx128m -XX:PermSize=32m -XX:MaxPermSize=64m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom
+    labels:
+      brownout.feature: "optional"
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: none
+  queue-master:
+    image: weaveworksdemos/queue-master
+    hostname: queue-master
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      brownout.feature: "optional"
+    deploy:
+      restart_policy:
+        condition: none
+  rabbitmq:
+    image: rabbitmq:3.6.8
+    hostname: rabbitmq
+    labels:
+      brownout.feature: "optional"
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: none
+  payment:
+    image: weaveworksdemos/payment
+    depends_on:
+      - zipkin
+    hostname: payment
+    environment:
+      - ZIPKIN=http://zipkin:9411/api/v1/spans
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+  user:
+    image: weaveworksdemos/user
+    hostname: user
+    depends_on:
+      - zipkin
+    environment:
+      - MONGO_HOST=user-db:27017
+      - ZIPKIN=http://zipkin:9411/api/v1/spans
+    labels:
+      brownout.feature: "optional"
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: none
+  user-db:
+    image: weaveworksdemos/user-db
+    hostname: user-db
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+  zipkin:
+    image: openzipkin/zipkin
+    hostname: zipkin
+    ports:
+      - "9411:9411"
+    labels:
+      brownout.feature: "optional"
+    deploy:
+      replicas: 4
+      restart_policy:
+        condition: none
+#  user-sim:
+#    image: weaveworksdemos/load-test
+#    hostname: user-simulator
+#    command: "-d 60 -r 200 -c 2 -h edge-router"
+#    deploy:
+#      placement:
+#        constraints: [node.role == manager]
