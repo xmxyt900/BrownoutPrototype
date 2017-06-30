@@ -19,11 +19,22 @@ public class UtilizationMonitor extends AbstractMonitor{
 
 		ComposeFileExecution composeFileExecution = new ComposeFileExecution();
 		composeFileExecution.initialDeploymentByComposeFile();
+		
+		try {
+			Thread.sleep(60*1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 				
 		// Execute commands for containers
 		ContainerCommandExecution containerCommandExecution = new ContainerCommandExecution();
 		String containersInfo = containerCommandExecution.getContainersCPU();
 		ArrayList<Container> containerList = containerCommandExecution.generateContainerList(containersInfo);
+		
+		for(Container container: containerList){
+			System.out.println(container.getHostName() + " " + container.getContainerId() + " " + container.getCpuUtil() + " " + container.getMemUtil());
+		}
 
 		// Execute commands for worker nodes
 		WorkerNodeCommandExecution workerNodeCommandExecution = new WorkerNodeCommandExecution();

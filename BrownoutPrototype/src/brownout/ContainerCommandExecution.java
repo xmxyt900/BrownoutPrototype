@@ -37,7 +37,7 @@ public class ContainerCommandExecution extends CommandExecution{
 
 		for (String singleStringLine : stringLines) {
 			// Example: DockerCluster1 | SUCCESS | rc=0 >>
-			if (singleStringLine.contains("SUCCESS")) {
+			if (singleStringLine.contains("SUCCESS") || singleStringLine.contains("success")) {
 				containerLine = singleStringLine.split(" \\| ");
 				hostName = containerLine[0];
 			}
@@ -83,4 +83,6 @@ public class ContainerCommandExecution extends CommandExecution{
 		}
 		return commandResults;
 	}
+	
+	
 }

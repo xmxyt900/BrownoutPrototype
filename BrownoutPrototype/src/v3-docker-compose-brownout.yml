@@ -51,26 +51,11 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]     
-  edge-router-two:
-    image: weaveworksdemos/edge-router
-    ports:
-      - '8081:80'
-      - '8083:8080'
-    hostname: edge-router
-    deploy:
-      placement:
-        constraints: [node.role == manager]
   catalogue:
-#    image: weaveworksdemos/catalogue
-    image: lukexu/catalogue
-#    cap_add:
-#      - ALL
+    image: weaveworksdemos/catalogue
     hostname: catalogue
     environment:
       - ZIPKIN=http://zipkin:9411/api/v1/spans
-#    cap_add:
-#      - ALL
-#    privileged: true
     labels:
       brownout.feature: "optional"
     deploy:

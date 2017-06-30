@@ -19,7 +19,8 @@ public class ServiceCommandExecution extends CommandExecution{
 		
 		//Example: "com.docker.swarm.service.id": "jyyuzs6p6u2e5c362jtp9m5at", 
 		int beginIndex = commandResults.indexOf(':') + 3;   //Begin with 'j'
-		int endIndex = commandResults.length() - 3;   //end with 't'
+//		int endIndex = commandResults.length() - 3;   //end with 't'
+		int endIndex = commandResults.indexOf(',') - 2; //end with 't'
 		String serviceId = commandResults.substring(beginIndex, endIndex); 
 	    System.out.println(serviceId);
 				

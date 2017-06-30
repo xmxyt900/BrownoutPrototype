@@ -38,14 +38,17 @@ public class WorkerNodeCommandExecution extends CommandExecution{
 		ArrayList<Container> containerListOnSameHost = new ArrayList<Container>();
 
 		for (String singleStringLine : stringLines) {
+			System.out.println(singleStringLine);
 			// Example: DockerCluster1 | SUCCESS | rc=0 >>
-			if (singleStringLine.contains("SUCCESS")) {
+			if (singleStringLine.contains("SUCCESS") || singleStringLine.contains("success")) {
 				containerLine = singleStringLine.split(" \\| ");
 				hostName = containerLine[0];
+				System.out.println("host name" + hostName);
 			}
 			// Example: 1.0%
 			if (singleStringLine.contains("%")) {
 				cpuUtil = Double.parseDouble(singleStringLine.substring(0, singleStringLine.length() - 1));
+				System.out.println("CPU utilization:" + cpuUtil);
 				containerListOnSameHost = getContainerListByHostName(hostName, p_containerList);
 				WorkerNode worknode = new WorkerNode(hostName, cpuUtil, containerListOnSameHost);
 				wnl.add(worknode);
