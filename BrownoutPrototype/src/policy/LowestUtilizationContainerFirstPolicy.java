@@ -15,13 +15,13 @@ import model.WorkerNode;
  * @author minxianx
  *
  */
-public class LowestUtilizationFirstPolicy implements AbstractPolicyInterface{
+public class LowestUtilizationContainerFirstPolicy implements AbstractPolicyInterface{
 
 	
 	double dimmerValue;
 	ArrayList<WorkerNode> wnl;
 	
-	public LowestUtilizationFirstPolicy(double p_dimmerValue, ArrayList<WorkerNode> p_wnl){
+	public LowestUtilizationContainerFirstPolicy(double p_dimmerValue, ArrayList<WorkerNode> p_wnl){
 		this.dimmerValue = p_dimmerValue;
 		this.wnl = p_wnl;
 	}
