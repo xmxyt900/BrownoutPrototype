@@ -12,12 +12,22 @@ public class Container {
 	String containerId;
 	double cpuUtil;
 	double memUtil;
+	String connection;
 	public Container(String p_hostName, String p_containerId, double p_cpuUtil, double p_memUtil){
 		this.hostName = p_hostName;
 		this.containerId = p_containerId;
 		this.cpuUtil = p_cpuUtil;
 		this.memUtil = p_memUtil;
 	}
+	
+	public Container(String p_hostName, String p_containerId, double p_cpuUtil, double p_memUtil, String p_connnection){
+		this.hostName = p_hostName;
+		this.containerId = p_containerId;
+		this.cpuUtil = p_cpuUtil;
+		this.memUtil = p_memUtil;
+		this.connection = p_connnection;
+	}
+	
 	
 	/**
 	 * @return the containerId
@@ -69,4 +79,20 @@ public class Container {
 	public void setHostName(String hostName) {
 		this.hostName = hostName;
 	}
+	
+	
+	/**
+	 * @return the connection
+	 */
+	public String getConnection() {
+		return connection;
+	}
+
+	/**
+	 * @param hostName the connection to set
+	 */
+	public void setConnection(String connection) {
+		this.hostName = connection;
+	}
+	
 }
