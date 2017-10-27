@@ -24,15 +24,15 @@ $ sudo yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 
-$ sudo yum makecache fast
-2. Get Docker CE
-Install the latest version of Docker CE on CentOS:
-$ sudo yum -y install docker-ce
-Start Docker:
-$ sudo systemctl start docker
-3. Test your Docker CE installation
-Test your installation:
-$ sudo docker run hello-world
+$ sudo yum makecache fast                    
+2. Get Docker CE                      
+Install the latest version of Docker CE on CentOS:                         
+$ sudo yum -y install docker-ce                    
+Start Docker:                   
+$ sudo systemctl start docker                  
+3. Test your Docker CE installation                  
+Test your installation:                  
+$ sudo docker run hello-world                  
 
 
 
