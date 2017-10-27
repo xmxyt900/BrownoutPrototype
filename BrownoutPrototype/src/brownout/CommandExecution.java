@@ -43,7 +43,7 @@ public class CommandExecution {
 			}
 
 		} catch (IOException e) {
-			System.out.println("Excepcion: ");
+			System.out.println("Exception: ");
 			e.printStackTrace();
 			System.exit(-1);
 		}
@@ -88,7 +88,7 @@ public class CommandExecution {
 			}
 
 		} catch (IOException e) {
-			System.out.println("Excepction: ");
+			System.out.println("Exception: ");
 			e.printStackTrace();
 			System.exit(-1);
 		}

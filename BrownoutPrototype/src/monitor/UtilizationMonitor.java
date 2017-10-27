@@ -3,16 +3,20 @@ package monitor;
 import java.util.ArrayList;
 
 import brownout.BrownoutController;
+import brownout.BrownoutMain;
 import brownout.ComposeFileExecution;
 import brownout.ContainerCommandExecution;
 import brownout.ServiceCommandExecution;
 import brownout.WorkerNodeCommandExecution;
+import log.LogRecorder;
 import model.Container;
 import model.WorkerNode;
 import policy.LowestUtilizationContainerFirstPolicy;
 
 public class UtilizationMonitor extends AbstractMonitor{
 
+
+	
 	@Override
 	void monitor() {
 		// TODO Auto-generated method stub
@@ -34,6 +38,7 @@ public class UtilizationMonitor extends AbstractMonitor{
 		
 		for(Container container: containerList){
 			System.out.println(container.getHostName() + " " + container.getContainerId() + " " + container.getCpuUtil() + " " + container.getMemUtil());
+			BrownoutMain.log.info(container.getHostName() + " " + container.getContainerId() + " " + container.getCpuUtil() + " " + container.getMemUtil());
 		}
 
 		// Execute commands for worker nodes
@@ -67,6 +72,7 @@ public class UtilizationMonitor extends AbstractMonitor{
 			serviceCommandExecution.updateServices(serviceId);
 		}
 		System.out.println("######Thread is sleeping######");
+		BrownoutMain.log.info("######Thread is sleeping######");
 	}
 	
 }
