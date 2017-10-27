@@ -14,8 +14,8 @@ How to run the project?
 3. java brownout/BrownoutMain
 >
 
-How to install docker on CentOS?
-Ref ：https://store.docker.com/editions/community/docker-ce-server-centos?tab=description
+How to install docker on CentOS? ＜/br＞     
+Ref ：https://store.docker.com/editions/community/docker-ce-server-centos?tab=description ＜/br＞
 1. Set up the repository
 Set up the Docker CE repository on CentOS:
 $ sudo yum install -y yum-utils
