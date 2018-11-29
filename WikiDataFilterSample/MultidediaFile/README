@@ -1,0 +1,27 @@
+a) Description: This dataset zip file is used parse the raw data file from Wikipedia workload trace and generate the trace containing time and request rate.
+                The following files are included:
+                1) README file: Basic information of the zip file.
+                2) WikiParserRaw.java: This file is used to parse the useful information from the raw data file of Wikipedia trace.
+                3) ResultParserWiki.java: This file is used to analyze the results from the parsed Wikipedia raw data.
+                4) samplewikirawdata01: It is a sample file from Wikipedia trace.
+                5) sampleparseddata01: It is the sample parsed results from "samplewikirawdata01".
+                6) samepleresutlbyminute01: It is the sample time and the number of requests at the minute rate.
+                7) WikidataRequestRate-2007Oct01.xlsx: Complete request rate from 2007/10/01 09:16 to 2007/10/02 09:16 of Wikipedia trace.
+
+b) Size: 3 MB
+
+c) Platform: Windows 7 or Later
+
+d) Environment: Java JDK 1.7 or later, Eclipse (Oxygen version)
+
+f) Detailed Set-up instructions: 1) Download the raw data of Wikipedia workload trace from http://www.wikibench.eu/?page_id=60 
+                                 2) In our experiments, we choose the workload trace from October 2007.
+
+g) Detailed Run Instructions: 1) Using WikiParserRaw.java file to parse the raw data to the time and its corresponding number of requests
+                              2) With the output from g).1), using ResultParserWiki to get the number of requests by second or minute. 
+
+h) Output Description: The WikidataRequestRate-2007Oct01.xlsx output file has two columns:
+                       1) Time: the time stamp at the minute rate from 2007/10/01 09:16 to 2007/10/02 09:16                    
+                       2) Number of requests: the request rate at each minute, e.g 131640 requests are coming at 2007/10/01 09:16
+
+i) Contact Information: Minxian Xu (minxianx@student.unimelb.edu.au) 
